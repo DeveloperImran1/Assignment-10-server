@@ -8,14 +8,18 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json())
 
+require("dotenv").config();
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASS);
 
 // Mongodb username and password
-// ih9066588
-// IfqjUSDRTi0NdJV1
+
 
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const uri = "mongodb+srv://ih9066588:IfqjUSDRTi0NdJV1@cluster0.houukfa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+// const uri = "mongodb+srv://ih9066588:IfqjUSDRTi0NdJV1@cluster0.houukfa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.houukfa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -43,26 +47,61 @@ async function run() {
     // add tourist spot in DB
     app.post("/addTouristSpot", async (req, res) => {
       const touristSpot = req.body;
-      
+
       const result = await touristCollection.insertOne(touristSpot)
       res.send(result)
 
     })
 
-    // My Added spots list Get
-    app.get("/myAddedList/:email", async(req, res) => {
+    // My Added spots list Get by email
+    app.get("/myAddedList/:email", async (req, res) => {
       const email = req.params.email;
-   
-      const query = {email: email};
+
+      const query = { email: email };
       const result = await touristCollection.find(query).toArray();
       res.send(result)
     })
 
+    // touristSpot get by id
+    app.get("/touristSpot/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await touristCollection.findOne(query);
+      res.send(result)
+    })
+
+    // touristSpot a data update or PUT korbo
+    app.put("/touristSpot/:id", async (req, res) => {
+      const id = req.params.id;
+      const updateInfo = req.body;
+      console.log(updateInfo)
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateTouristInfo = {
+        $set: {
+          country_Name: updateInfo.U_country_Name,
+          image: updateInfo.U_image,
+          name: updateInfo.U_name,
+          email: updateInfo.U_email,
+          tourists_spot_name: updateInfo.U_tourists_spot_name,
+          average_cost: updateInfo.U_average_cost,
+          seasonality: updateInfo.U_seasonality,
+          totalVisitorsPerYear: updateInfo.U_totalVisitorsPerYear,
+          location: updateInfo.U_location,
+          shortDescription: updateInfo.U_shortDescription,
+          travel_time: updateInfo.U_travel_time,
+        }
+      }
+
+      const result = await touristCollection.updateOne(filter, updateTouristInfo, options);
+      res.send(result)
+    })
+
     // Spot delete in DB
-    app.delete("/myAddedList/:id", async(req, res)=> {
+    app.delete("/myAddedList/:id", async (req, res) => {
       const id = req.params.id;
       console.log("Delete data this id:", id)
-      const query = {_id: new ObjectId(id)};
+      const query = { _id: new ObjectId(id) };
       const result = await touristCollection.deleteOne(query);
       res.send(result)
     })
