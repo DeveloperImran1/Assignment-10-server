@@ -97,8 +97,8 @@ async function run() {
         $set: {
           country_Name: updateInfo.U_country_Name,
           image: updateInfo.U_image,
-          name: updateInfo.U_name,
           email: updateInfo.U_email,
+          name: updateInfo.U_name,
           tourists_spot_name: updateInfo.U_tourists_spot_name,
           average_cost: updateInfo.U_average_cost,
           seasonality: updateInfo.U_seasonality,
