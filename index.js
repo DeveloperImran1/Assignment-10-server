@@ -12,9 +12,6 @@ require("dotenv").config();
 console.log(process.env.DB_USER);
 console.log(process.env.DB_PASS);
 
-// Mongodb username and password
-
-
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
