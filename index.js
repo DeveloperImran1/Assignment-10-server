@@ -75,6 +75,7 @@ async function run() {
       res.send(result)
     })
 
+
     // touristSpot get by id
     app.get("/touristSpot/:id", async (req, res) => {
       const id = req.params.id;
@@ -82,6 +83,7 @@ async function run() {
       const result = await touristCollection.findOne(query);
       res.send(result)
     })
+
 
     // touristSpot a data update or PUT korbo
     app.put("/touristSpot/:id", async (req, res) => {
@@ -120,7 +122,6 @@ async function run() {
       res.send(result)
     })
 
-    // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
