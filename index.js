@@ -113,6 +113,8 @@ async function run() {
       res.send(result)
     })
 
+
+    
     // Spot delete in DB
     app.delete("/myAddedList/:id", async (req, res) => {
       const id = req.params.id;
