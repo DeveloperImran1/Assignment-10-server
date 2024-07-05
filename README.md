@@ -40,7 +40,7 @@ Visit the live site url at[TravelsBook Live] (https://assignment-10-10bbc.web.ap
    npm run build
    ```
 5. **Deploy firebase**
-   ``sh
+   ```sh
    firebase deploy
    ```
    
