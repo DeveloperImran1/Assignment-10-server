@@ -20,11 +20,11 @@ Visit the live site url at[TravelsBook Live] (https://assignment-10-10bbc.web.ap
 ## How to start this application:
  1. **Clone this repository:**
     ```sh Client Side:
-    git clone https://github.com/DeveloperImran1/Assignment-10-Client.git
+    git clone https://github.com/DeveloperImran1/TravelsBook-Client.git
     cd Assignment-10-Client
     ```
     ```sh Server side:
-    git clone https://github.com/DeveloperImran1/Assignment-10-server.git
+    git clone https://github.com/DeveloperImran1/TravelsBook-server.git
     cd Assignment-10-server
     ```
 2. **Install Dependcis**
